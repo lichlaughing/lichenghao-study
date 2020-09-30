@@ -1,0 +1,12 @@
+server:
+  port: 8102
+spring:
+  application:
+    name: lich-eureka-provider
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: lich-eureka-provider:8102
+  client:
+    service-url:
+      defaultZone: http://root:123456@192.168.0.107:8888/eureka/

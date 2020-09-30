@@ -1,0 +1,12 @@
+server:
+  port: 8081
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: lich-gateway-zuul:8081
+  client:
+    service-url:
+      defaultZone: http://root:123456@192.168.0.107:8888/eureka/
+zuul:
+  routes:
+    lich-eureka-consumer: /api/**

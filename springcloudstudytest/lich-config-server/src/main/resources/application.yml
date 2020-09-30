@@ -1,0 +1,20 @@
+server:
+  port: 7000
+spring:
+  application:
+    name: lich-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/lichenghao/spring-cloud-config.git
+          username:  1710322553@qq.com
+          password: lichenghao.88888
+          search-paths: config
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: lich-config-server:7000
+  client:
+    service-url:
+      defaultZone: http://root:123456@192.168.0.107:8888/eureka/

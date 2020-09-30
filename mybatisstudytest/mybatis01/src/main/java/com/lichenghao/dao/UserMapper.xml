@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lichenghao.dao.UserMapper">
+    <select id="userList" resultType="com.lichenghao.entity.User">
+        select * from tb_user
+    </select>
+    <select id="getUserById" resultType="com.lichenghao.entity.User">
+        select * from tb_user where id = #{id}
+    </select>
+    <update id="updateUserById" parameterType="com.lichenghao.entity.User">
+        update tb_user set username=#{username} where id = #{id}
+    </update>
+    <insert id="addUser" parameterType="com.lichenghao.entity.User">
+        insert into tb_user (id,username,age,birthday) value (#{id},#{username},#{age},#{birthday})
+    </insert>
+    <insert id="addUserByMap" parameterType="map">
+        insert into tb_user (id,username,age,birthday) value (#{id},#{n},#{a},#{b})
+    </insert>
+    <select id="userListByName" resultType="com.lichenghao.entity.User">
+        select * from tb_user where username like #{username}
+    </select>
+</mapper>

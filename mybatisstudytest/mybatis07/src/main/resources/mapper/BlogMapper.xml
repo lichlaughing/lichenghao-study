@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lichenghao.dao.BlogMapper">
+
+    <!--代码片段-->
+    <sql id="title_author">
+        <if test="title!=null">
+            and title like "%"#{title}"%"
+        </if>
+        <if test="author!=null">
+            and author like "%"#{author}"%"
+        </if>
+    </sql>
+
+    <insert id="addBlog">
+        insert into blog (id,title,author,create_time,views)
+        values (#{id},#{title},#{author},#{createTime},#{views})
+    </insert>
+
+    <!--IF-->
+    <select id="queryByIf" parameterType="map" resultType="blog">
+        select * from blog
+        <where>
+            <include refid="title_author"></include>
+        </where>
+    </select>
+
+    <!--choose when otherwise 注意：若多个条件都满足，只会走第一个满足的条件;都不满足走otherwise-->
+    <select id="queryByChoose" parameterType="map" resultType="blog">
+        select * from blog
+        <where>
+            <choose>
+                <when test="title!=null">
+                    and title like "%"#{title}"%"
+                </when>
+                <when test="author!=null">
+                    and author like "%"#{author}"%"
+                </when>
+                <otherwise>
+                    and views > 0
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <!--set-->
+    <update id="updateBlog">
+        update blog
+        <set>
+            <if test="title!=null">
+                title = #{title},
+            </if>
+            <if test="author!=null">
+                author = #{author}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--foreach-->
+    <select id="queryByForeach" parameterType="map" resultType="blog">
+        SELECT *
+        FROM blog
+        WHERE id in
+        <foreach collection="ids" item="id" index="index" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lichenghao.dao.UserMapper4">
+    <resultMap id="UserMap" type="User">
+        <result property="id" column="id"></result>
+        <result property="name" column="username"></result>
+        <result property="age" column="age"></result>
+        <result property="birthday" column="birthday"></result>
+    </resultMap>
+
+    <select id="getUserById" resultMap="UserMap">
+        select * from tb_user where id = #{id}
+    </select>
+
+    <select id="userList" resultMap="UserMap" parameterType="map">
+        select * from tb_user limit #{start},#{pageSize}
+    </select>
+</mapper>

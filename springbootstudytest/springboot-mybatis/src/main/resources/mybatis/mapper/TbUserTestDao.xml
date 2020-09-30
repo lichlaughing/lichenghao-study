@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.lichenghao.springbootmybatis.dao.TbUserTestDao">
+    <resultMap id="BaseResultMap" type="cn.com.lichenghao.springbootmybatis.model.TbUserTest">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="ag" jdbcType="INTEGER" property="ag"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, `name`, ag
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_user_test
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from tb_user_test
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id"
+            parameterType="cn.com.lichenghao.springbootmybatis.model.TbUserTest" useGeneratedKeys="true">
+        insert into tb_user_test (id,name, ag)
+        values (#{id,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR}, #{ag,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="cn.com.lichenghao.springbootmybatis.model.TbUserTest" useGeneratedKeys="true">
+        insert into tb_user_test
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                `name`,
+            </if>
+            <if test="ag != null">
+                ag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="ag != null">
+                #{ag,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.com.lichenghao.springbootmybatis.model.TbUserTest">
+        update tb_user_test
+        <set>
+            <if test="name != null">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="ag != null">
+                ag = #{ag,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.com.lichenghao.springbootmybatis.model.TbUserTest">
+    update tb_user_test
+    set `name` = #{name,jdbcType=VARCHAR},
+      ag = #{ag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 交给容器即可 -->
+    <bean id="userService" class="cn.com.lichenghao.service.impl.UserServieImpl"></bean>
+
+    <!-- 工厂 -->
+    <bean id="userFactory" class="cn.com.lichenghao.factory.UserFactory"></bean>
+    <bean id="userService1" factory-bean="userFactory" factory-method="instance"></bean>
+
+    <!-- 静态工厂 -->
+    <bean id="userService2" class="cn.com.lichenghao.factory.StaticUserFactory" factory-method="instance"></bean>
+
+
+    <bean id="user" class="cn.com.lichenghao.model.User">
+        <property name="strings">
+            <array>
+                <value>1</value>
+                <value>2</value>
+            </array>
+        </property>
+        <property name="list">
+            <list>
+                <value>1</value>
+                <value>2</value>
+            </list>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="m1" value="m1"></entry>
+                <entry key="m2">
+                    <value>m2</value>
+                </entry>
+            </map>
+        </property>
+
+        <property name="properties">
+            <props>
+                <prop key="p1">p1</prop>
+                <prop key="p2">p2</prop>
+            </props>
+        </property>
+
+    </bean>
+
+</beans>
