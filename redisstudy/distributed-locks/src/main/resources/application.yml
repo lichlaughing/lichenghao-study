@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: distributed-locks
+  redis:
+    host: 172.16.127.21
+    port: 6379
+    password: root1234
