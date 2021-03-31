@@ -1,23 +1,18 @@
 package cn.com.lichenghao.sync;
 
-import org.junit.Test;
-
 /**
  * @author Chenghao.li
  * 演示 synchronized 同步，原子操作
  */
 public class Test01 {
 
-    @Test
-    public void t1() {
-        SumWithOutLock sumWithOutLock = new SumWithOutLock();
+    public static void main(String[] args) {
+        // 非同步
+        /*SumWithOutLock sumWithOutLock = new SumWithOutLock();
         for (int i = 0; i < 2; i++) {
             new Thread(sumWithOutLock).start();
-        }
-    }
-
-    @Test
-    public void t2() {
+        }*/
+        // 同步
         SumWithLock sumWithLock = new SumWithLock();
         for (int i = 0; i < 2; i++) {
             new Thread(sumWithLock).start();
