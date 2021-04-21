@@ -6,25 +6,27 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author chenghao.li
- * 演示Condition实现交替打印
+ * 演示Condition/await(),signalAll()实现交替打印
  */
-public class ConditionTest03 {
+public class ConditionTest04 {
     static Lock lock = new ReentrantLock();
     static Condition condition = lock.newCondition();
     static boolean flag = false;
 
     public static void main(String[] args) {
-        ConditionTest03 conditionTest03 = new ConditionTest03();
-        new Thread(() -> {
-            for (int i = 0; i < 100; i++) {
-                conditionTest03.printA();
-            }
-        }).start();
-        new Thread(() -> {
-            for (int i = 0; i < 100; i++) {
-                conditionTest03.printB();
-            }
-        }).start();
+        ConditionTest04 conditionTest04 = new ConditionTest04();
+        for (int i = 0; i < 100; i++) {
+            new Thread(() -> {
+                for (int j = 0; j < 100; j++) {
+                    conditionTest04.printA();
+                }
+            }).start();
+            new Thread(() -> {
+                for (int j = 0; j < 100; j++) {
+                    conditionTest04.printB();
+                }
+            }).start();
+        }
     }
 
     public void printA() {
@@ -35,7 +37,7 @@ public class ConditionTest03 {
             }
             System.out.println(Thread.currentThread().getName() + "-A");
             flag = true;
-            condition.signal();
+            condition.signalAll();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -51,7 +53,7 @@ public class ConditionTest03 {
             }
             System.out.println(Thread.currentThread().getName() + "-B");
             flag = false;
-            condition.signal();
+            condition.signalAll();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
